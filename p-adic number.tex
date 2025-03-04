@@ -1,0 +1,216 @@
+\documentclass{beamer}
+% For handout mode
+%\documentclass[handout]{beamer}
+
+%\usetheme{Frankfurt}
+%\setbeamercovered{transparent}
+%\usetheme{Frankfurt}
+%\usetheme{Rochester}
+%\usetheme{Madrid}
+%\usetheme{default}
+\usetheme{Boadilla}
+%\usetheme{AnnArbor}
+%\setbeamercovered{transparent}
+
+
+\usepackage{amsmath,amsfonts, amssymb, latexsym, epsfig, upgreek, mathtools}
+%\usepackage{amsmath, mathtools, amsthm, amssymb,, amscd, graphicx, pgf, tikz, MnSymbol, esint, nicefrac, units, stackengine, multicol, marvosym}
+\usepackage{amssymb}
+\usepackage{amscd}
+%\usepackage{showkeys}
+\usepackage{pdfsync}
+%\usepackage{xypic}
+%\usepackage{stmaryrd,MnSymbol}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{cor}[theorem]{Corollary}
+
+%\usepackage{euler}
+% For handout mode
+%\pgfpagesuselayout{4 on 1}[letterpaper,landscape, border shrink=5mm]
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\one}{1\hskip-3.5pt1}
+\newcommand{\csm}{{c_{\text{SM}}}}
+\renewcommand{\textfraction}{0.15} 
+\renewcommand{\topfraction}{0.85} 
+\renewcommand{\bottomfraction}{0.80} 
+\renewcommand{\floatpagefraction}{0.75} 
+
+\begin{document}
+\title[The p-adic number and its application]{The p-adic number and Finding roots in $\Z_p$}
+\author{Matseoi Zau}
+\frame{\titlepage}
+%\maketitle
+
+\frame{
+\frametitle{Overview}
+Three Parts:
+\begin{itemize}
+\item[1.] Non Archimedean Absolute Value
+\end{itemize}
+}
+
+\frame{
+\frametitle{Overview}
+Three Parts:
+\begin{itemize}
+\item[1.] Non Archimedean Absolute Value
+\item[2.] Defining p-adic numbers
+\end{itemize}
+}
+
+\frame{
+\frametitle{Overview}
+Three Parts:
+\begin{itemize}
+\item[1.] Non Archimedean Absolute Value
+\item[2.] Defining p-adic numbers
+\item[3.] Application: Hensel’s Lemma
+\end{itemize}
+}
+
+\begin{frame}
+    \begin{definition}
+    \frametitle{Part 1: Non Archimedean Absolute Value}
+        A \textit{non-Archimedean absolute value} \( |\cdot|_p \) mapping from a field \( K \) to \( \mathbb{R}^+ \)  is an absolute value that satisfies the \textit{non-archimedean property}:
+        \[
+            |x + y| \leq \max(|x|, |y|)
+        \]
+        for all \( x, y \in K \). Additionally:
+        \begin{itemize}
+            \item \( |x| \geq 0 \), and \( |x| = 0 \) if and only if \( x = 0 \),
+            \item \( |xy| = |x| |y| \) for all \( x, y \in K \),
+            \item \( |x+y| \leq |x|+|y| \) for all \( x, y \in K \).
+        \end{itemize}
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Part 1: Non Archimedean Absolute Value}
+    \textit{\( p \)-adic absolute value} is an example of non Archimedean absolute value
+    \begin{definition}
+        The \textit{\( p \)-adic valuation} \( v_p(x) \) of a nonzero rational number \( x \) is given by:
+        
+        \[ v_p(x) = \max \{ k \in \mathbb{Z} : p^k \text{ divides } x \} \]
+        
+        For \( x = 0 \), \( v_p(0) = +\infty \).
+    \end{definition}
+    \begin{definition}
+        The \textit{\( p \)-adic absolute value} \( |\cdot|_p \) on the field of rational numbers \( \mathbb{Q} \) is defined as for any nonzero rational number \( x \), then:
+        \[
+            |x|_p = p^{-v_p(x)}
+        \]
+        and \( |0|_p = 0 \).
+    \end{definition}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Ostrowski's Theorem}
+    \begin{theorem}
+        	{Ostrowski's Theorem} states that any absolute value on the field of rational numbers \( \mathbb{Q} \) is equivalent to either:
+        
+        \begin{itemize}
+            \item the usual absolute value \( |\cdot| \), or
+            \item the \( p \)-adic absolute value \( |\cdot|_p \) for some prime number \( p \).
+        \end{itemize}
+        
+        In other words, every nontrivial absolute value on \( \mathbb{Q} \) is either Archimedean (the usual absolute value) or non-Archimedean (a \( p \)-adic absolute value).
+    \end{theorem}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Part 2: The \( p \)-adic numbers}
+    \begin{definition}
+        A \( p \)-adic number can be expressed as an infinite series of the form:
+        \[
+            x = \sum_{n=N}^\infty a_n p^n,
+        \]
+        where:
+        \begin{itemize}
+            \item \( N \in \mathbb{Z} \) (allowing for negative powers of \( p \)),
+            \item \( a_n \in \{0, 1, \ldots, p-1\} \) are the coefficients,
+            \item \( p \) is a fixed prime number.
+        \end{itemize}
+    \end{definition}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Part 2: The \( p \)-adic numbers}
+
+    \textbf{Example: 3-adic Expansion of 72} \\
+    Consider the 3-adic expansion of the number 72:
+    \[
+        72 = 0 \cdot 3^0 + 0 \cdot 3^1 + 2 \cdot 3^2 + 2 \cdot 3^3
+    \]
+    where \( a_n \in \{0, 1, 2\} \) are the coefficients. Here, \( 72 \) is represented in the base-3 system.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Part 2: The \( p \)-adic numbers}
+    	\textbf{3-adic Expannsion of -$\frac{1}{2}$ }\\
+    Consider the sequence:
+    \[
+        x_n = 1 + 3 + 3^2 + \cdots + 3^n
+    \]
+    In the real numbers \( \mathbb{R} \), this sequence diverges. However, in the 3-adic numbers \( \mathbb{Q}_3 \), this sequence converges to:
+    \[
+        \ldots 33331_3 = \frac{1}{1-3} = -\frac{1}{2}
+    \]
+    This example highlights the difference in convergence behavior between \( \mathbb{R} \) and \( \mathbb{Q}_3 \).
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Part 3: Hensel's Lemma}
+
+    \textbf{Motivation}  
+\begin{itemize}
+    \item \textbf{Roots in \( \mathbb{Z} \):} Use modular arithmetic (e.g., Gauss Lemma).  
+    \item \textbf{Roots in \( \mathbb{Q} \):} Rational Root Theorem provides systematic candidates.  
+    \item \textbf{Roots in \( \mathbb{Z}_p \):} How do we lift solutions from \( \mathbb{Z}/p\mathbb{Z} \) to higher moduli \( \mathbb{Z}/p^k\mathbb{Z} \)?
+\end{itemize}
+    
+\end{frame}
+
+
+
+\begin{frame}
+    \frametitle{Part 3: Hensel's Lemma}
+    \begin{theorem}
+        \textit{Hensel's Lemma} states that if \( F(X) = a_0 + a_1 X + a_2 X^2 + \cdots + a_n X^n \) is a polynomial with coefficients in \( \mathbb{Z}_p \), and there exists a \( p \)-adic integer \( \alpha_1 \in \mathbb{Z}_p \) such that:
+        \[ F(\alpha_1) \equiv 0 \pmod{p \mathbb{Z}_p} \]
+        and
+        \[ F'(\alpha_1) \not\equiv 0 \pmod{p \mathbb{Z}_p}, \]
+        where \( F'(X) \) is the formal derivative of \( F(X) \), then there exists a unique \( p \)-adic integer \( \alpha \in \mathbb{Z}_p \) such that:
+        \[ \alpha \equiv \alpha_1 \pmod{p \mathbb{Z}_p}, \quad F(\alpha) = 0. \]
+    \end{theorem}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Part 3: Hensel's Lemma}
+    	\textbf{Example: Applying Hensel's Lemma} \\
+    Let \( f(X) = X^2 - 4 \) over the 5-adic integers. We have:
+    \[ f(3) \equiv 0 \pmod{3}, \quad f'(3) = 2 \times 3 \equiv 1 \pmod{3} \]
+    To find the square root of 4:
+    \[ 4 \equiv 3^2 \pmod{5} \]
+    \[ 4 \equiv (3 + 4 \cdot 5)^2 \pmod{25} \]
+    \[ 4 \equiv (3 + 4 \cdot 5 + 1 \cdot 5^2) \pmod{125} \]
+    Therefore, the root is:
+    \[ \ldots 141
+    \]
+\end{frame}
+
+\begin{frame}
+    \frametitle{Acknowledgments}
+    I would like to thank:
+    
+    \begin{itemize}
+        \item Matthew for the mentoring,
+        \item The Directed Reading Program Committee for organizing this opportunity,
+        \item The audience for their attention and participation.
+    \end{itemize}
+\end{frame}
+
+\end{document}
